@@ -13,51 +13,59 @@ Supported graphical components:
 You can animate localPosition for Transform component. Also you can generate multi-step animation.
 
 1. How to use SimpleAnimator for Unity
-- Add **ElementsAnimator** to Scene.
-- Find reference on ElementsAnimator component. (You can use Dependency Injection, Singleton or direct finding on scene)
-- Send gameobject and animation parameters to ElementsAnimator methods.
+    - Add **ElementsAnimator** to the Scene.
+    - Find reference of ElementsAnimator component. (You can use Dependency Injection, Singleton or direct finding on the scene)
+    - Send target gameObject and neseccary animation parameters to one of the ElementsAnimator's methods.
 
 2. Animate Alpha channel 
 
-        ElementsAnimator programAnimator = transform.GetComponentInParent<ElementsAnimator>();
+    ```cs
+    ElementsAnimator programAnimator = transform.GetComponentInParent<ElementsAnimator>();
 
-        Text text = GetComponentInChildren<Text>();
-        RawImage icon = GetComponentInChildren<RawImage>();
+    Text text = GetComponentInChildren<Text>();
+    RawImage icon = GetComponentInChildren<RawImage>();
 
-        float startValue = 0;
-        float finishValue = 0.5f;
-        float time = 2f;
+    float startValue = 0;
+    float finishValue = 0.5f;
+    float time = 2f;
 
-        programAnimator.AnimateAlpha(text.gameObject, startValue, finishValue, time);
-
-        programAnimator.AnimateAlphaFromCurrentState(icon.gameObject, finishValue, time);
+    programAnimator.AnimateAlpha(text.gameObject, startValue, finishValue, time);
+    
+    programAnimator.AnimateAlphaFromCurrentState(icon.gameObject, finishValue, time);
+    ```
         
-3. Send ***animateChildren*** parameter for animate all children
+3. Send ***animateChildren*** parameter as ***true*** to animate all suitable children of the target gameObject
 
-        float delay = 0.3f;
-        bool animateChildren = true;
+    ```cs
+    float delay = 0.3f;
+    bool animateChildren = true;
 
-        programAnimator.AnimateAlphaFromCurrentState(gameObject, finishValue, time, delay, animateChildren);
+    programAnimator.AnimateAlphaFromCurrentState(gameObject, finishValue, time, delay, animateChildren);
+    ```
 
 4. Animate Color
 
-        LineRenderer line = GetComponentInChildren<LineRenderer>();
+    ```cs
+    LineRenderer line = GetComponentInChildren<LineRenderer>();
 
-        Color startColor = Color.white;
-        Color finishColor = Color.green;
+    Color startColor = Color.white;
+    Color finishColor = Color.green;
 
-        programAnimator.AnimateColor(line.gameObject, startColor, finishColor, time);
+    programAnimator.AnimateColor(line.gameObject, startColor, finishColor, time);
+    ```
         
 5. Animate position
 
-        Vector2 startPosition = new Vector2(0, 0);
-        Vector2 finishPosition = new Vector2(10, -5);
+    ```cs
+    Vector2 startPosition = new Vector2(0, 0);
+    Vector2 finishPosition = new Vector2(10, -5);
 
-        programAnimator.AnimatePosition(gameObject.transform, startPosition, finishPosition, time);
+    programAnimator.AnimatePosition(gameObject.transform, startPosition, finishPosition, time);
+    ```
 
 6. Use ***IEnumerator*** type methods to create Coroutine with animation and start it manually.
 
-    ```
+    ```cs
     void StartAnimation()
     {
         float time = 2f;
@@ -72,5 +80,6 @@ You can animate localPosition for Transform component. Also you can generate mul
     }
     ```
 7. Set current FPS value to ElementsAnimator.FrameRate for improve time accuracy of animation
-
-            _programAnimator.FrameRate = currentFrameRate;
+    ```cs
+    _programAnimator.FrameRate = currentFrameRate;
+    ```
